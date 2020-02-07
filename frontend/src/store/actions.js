@@ -6,6 +6,7 @@ import { mapDrive } from './helpers';
 import { i18n } from '../main';
 import { FETCH_PASSENGERS } from './modules/passengers';
 import { FETCH_CARS } from './modules/cars';
+import { FETCH_PROJECTS } from './modules/projects';
 import {
   actions as apiActions,
   namespaces,
@@ -29,7 +30,7 @@ export const actions = {
       dispatch(`${namespaces.passengers}/${FETCH_PASSENGERS}`);
       dispatch(`${namespaces.cars}/${FETCH_CARS}`);
       dispatch(`${namespaces.drives}/${apiActions.fetchDrives}`);
-      dispatch(`${namespaces.projects}/${apiActions.fetchProjects}`);
+      dispatch(`${namespaces.projects}/${FETCH_PROJECTS}`);
       if (callback) {
         callback();
       }

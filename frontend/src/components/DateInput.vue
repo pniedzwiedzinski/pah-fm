@@ -1,11 +1,11 @@
 <template>
   <input
     type="date"
-    @change="syncToLocalStorage"
-    @input="$emit('input', $event.target.value)"
-    name="date"
-    :max="currentDate"
     class="form-control"
+    name="date"
+    @input="$emit('input', $event.target.value)"
+    :max="currentDate"
+    :value="value"
   />
 </template>
 

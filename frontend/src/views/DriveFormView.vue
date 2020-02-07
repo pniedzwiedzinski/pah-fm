@@ -54,7 +54,7 @@
         v-if="projects.data"
         @change="syncToLocalStorage"
         v-model="form.project"
-        name="car"
+        name="project"
         class="form-control"
         :class="{ 'is-invalid': isInvalid['project'] }"
       >
@@ -68,7 +68,7 @@
       </select>
       <p
         class="font-weight-bold"
-        v-if="!cars.data"
+        v-if="!projects.data"
       >
         {{ $t('drive_form.no_project_message') }}
       </p>
@@ -77,7 +77,7 @@
     <div class="form-group">
       <label>{{ $t('drive_form.cars') }}</label>
       <select
-        v-if="cars.data"
+        v-if="cars"
         v-model="form.car"
         @change="syncToLocalStorage"
         name="car"
@@ -85,7 +85,7 @@
         :class="{ 'is-invalid': isInvalid['car'] }"
       >
         <option
-          v-for="car in cars.data"
+          v-for="car in cars"
           :key="car.id"
           :value="car.id"
         >
@@ -94,7 +94,7 @@
       </select>
       <p
         class="font-weight-bold"
-        v-if="!cars.data"
+        v-if="!cars"
       >
         {{ $t('drive_form.no_cars_message') }}
       </p>
@@ -225,6 +225,7 @@ import { USER } from '../store';
 import * as actions from '../store/actions';
 
 import { FETCH_PASSENGERS } from '../store/modules/passengers';
+import { FETCH_CARS } from '../store/modules/cars';
 import {
   namespaces,
   actions as apiActions,
@@ -279,7 +280,7 @@ export default {
   },
   methods: {
     ...mapActions([actions.SUBMIT]),
-    ...mapActions(namespaces.cars, [apiActions.fetchCars]),
+    ...mapActions(namespaces.cars, [FETCH_CARS]),
     ...mapActions(namespaces.passengers, [FETCH_PASSENGERS]),
     ...mapActions(namespaces.projects, [apiActions.fetchProjects]),
     handleSubmit() {
@@ -327,13 +328,13 @@ export default {
     },
   },
   created() {
-    this[apiActions.fetchCars]();
+    this[FETCH_CARS]();
     this[FETCH_PASSENGERS]();
     this[apiActions.fetchProjects]();
   },
   computed: {
     ...mapState(namespaces.cars, {
-      cars: state => state,
+      cars: ({ CARS }) => CARS,
     }),
     ...mapState(namespaces.projects, {
       projects: state => state,

@@ -20,6 +20,7 @@ const mutations = {
 
 const actions = {
   [FETCH_PASSENGERS]: ({ commit }) =>
+    // TODO: Error handling
     get('passengers').then(passengers => commit(SET_PASSENGERS, passengers)),
 };
 

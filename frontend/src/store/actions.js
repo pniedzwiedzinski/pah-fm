@@ -5,6 +5,7 @@ import * as mutations from './mutations';
 import { mapDrive } from './helpers';
 import { i18n } from '../main';
 import { FETCH_PASSENGERS } from './modules/passengers';
+import { FETCH_CARS } from './modules/cars';
 import {
   actions as apiActions,
   namespaces,
@@ -26,7 +27,7 @@ export const actions = {
     getMyself().then((user) => {
       commit(mutations.SET_USER, user);
       dispatch(`${namespaces.passengers}/${FETCH_PASSENGERS}`);
-      dispatch(`${namespaces.cars}/${apiActions.fetchCars}`);
+      dispatch(`${namespaces.cars}/${FETCH_CARS}`);
       dispatch(`${namespaces.drives}/${apiActions.fetchDrives}`);
       dispatch(`${namespaces.projects}/${apiActions.fetchProjects}`);
       if (callback) {

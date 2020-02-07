@@ -1,6 +1,7 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
 import { get } from '../../../services/api/http';
 
-//state
+// state
 export const PASSENGERS = 'PASSENGERS';
 // mutations
 export const SET_PASSENGERS = 'SET_PASSENGERS';
@@ -12,12 +13,14 @@ const state = {
 };
 
 const mutations = {
-  [SET_PASSENGERS]: (state, passengers) => (state[PASSENGERS] = passengers),
+  [SET_PASSENGERS]: (s, passengers) => {
+    s[PASSENGERS] = passengers;
+  },
 };
 
 const actions = {
   [FETCH_PASSENGERS]: ({ commit }) =>
-    get('passengers').then((data) => commit(SET_PASSENGERS, data)),
+    get('passengers').then(passengers => commit(SET_PASSENGERS, passengers)),
 };
 
 export default {

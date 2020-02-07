@@ -16,7 +16,7 @@
         :max="currentDate"
         class="form-control"
         :class="{ 'is-invalid': isInvalid['date'] }"
-      />
+      >
     </div>
 
     <div class="form-group">
@@ -196,7 +196,7 @@
       variant="secondary"
       dismissible
       :show="confirmationOffline"
-      @dismissed="confirmationOffline=false"
+      @dismissed="confirmationOffline = false"
     >
       <b>{{ $t('drive_form.drive_added_offline_notification') }}</b>
     </b-alert>
@@ -328,7 +328,7 @@ export default {
   },
   created() {
     this[apiActions.fetchCars]();
-    this[apiActions.fetchPassengers]();
+    this[FETCH_PASSENGERS]();
     this[apiActions.fetchProjects]();
   },
   computed: {
@@ -339,12 +339,12 @@ export default {
       projects: state => state,
     }),
     ...mapState(namespaces.passengers, {
-      passengers: state =>
-        (state.data || []).map(p => ({
-          value: p.id,
-          text: [p.firstName, p.lastName].join(' '),
-          rsaModulusN: p.rsaModulusN,
-          rsaPubE: p.rsaPubE,
+      passengers: ({ PASSENGERS }) =>
+        PASSENGERS.map(({ id, firstName, lastName, rsaPubE, rsaModulusN }) => ({
+          value: id,
+          text: [firstName, lastName].join(' '),
+          rsaModulusN,
+          rsaPubE,
         })),
     }),
     ...mapState([USER]),

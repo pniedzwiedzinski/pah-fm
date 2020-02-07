@@ -1,5 +1,6 @@
 import { makeModule, makeFetchData } from './helpers';
 import { namespaces, actions } from './constants';
+import PassengerModule from './modules/passengers';
 
 const modules = {
   [namespaces.drives]: makeModule({
@@ -8,14 +9,10 @@ const modules = {
   [namespaces.cars]: makeModule({
     [actions.fetchCars]: makeFetchData('cars'),
   }),
-  [namespaces.passengers]: makeModule({
-    [actions.fetchPassengers]: makeFetchData('passengers'),
-  }),
+  [namespaces.passengers]: PassengerModule,
   [namespaces.projects]: makeModule({
     [actions.fetchProjects]: makeFetchData('projects'),
   }),
 };
 
-export {
-  modules,
-};
+export { modules };

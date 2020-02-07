@@ -16,7 +16,7 @@
         :max="currentDate"
         class="form-control"
         :class="{ 'is-invalid': isInvalid['date'] }"
-      >
+      />
     </div>
 
     <div class="form-group">
@@ -224,6 +224,7 @@ import GroupGuardMixin from '../mixins/GroupGuardMixin';
 import { USER } from '../store';
 import * as actions from '../store/actions';
 
+import { FETCH_PASSENGERS } from '../store/modules/passengers';
 import {
   namespaces,
   actions as apiActions,
@@ -279,7 +280,7 @@ export default {
   methods: {
     ...mapActions([actions.SUBMIT]),
     ...mapActions(namespaces.cars, [apiActions.fetchCars]),
-    ...mapActions(namespaces.passengers, [apiActions.fetchPassengers]),
+    ...mapActions(namespaces.passengers, [FETCH_PASSENGERS]),
     ...mapActions(namespaces.projects, [apiActions.fetchProjects]),
     handleSubmit() {
       this.validateForm(this.validator);

@@ -8,15 +8,11 @@
   >
     <div class="form-group">
       <label>{{ $t('drive_form.date') }}</label>
-      <input
-        type="date"
+      <date-input
         @change="syncToLocalStorage"
         v-model="form.date"
-        name="date"
-        :max="currentDate"
-        class="form-control"
         :class="{ 'is-invalid': isInvalid['date'] }"
-      >
+      />
     </div>
 
     <div class="form-group">
@@ -217,6 +213,7 @@ import vSelect from 'vue-select';
 
 import 'vue-select/dist/vue-select.css';
 
+import DateInput from '../components/DateInput.vue';
 import MainForm from '../components/MainForm.vue';
 import FormMixin from '../mixins/FormMixin';
 import GroupGuardMixin from '../mixins/GroupGuardMixin';
@@ -261,7 +258,7 @@ const requiredFields = [
 
 export default {
   name: 'DriveFormView',
-  components: { vSelect, MainForm },
+  components: { vSelect, MainForm, DateInput },
   mixins: [FormMixin, GroupGuardMixin],
   mounted() {
     this.loadFormData(initialFormData);

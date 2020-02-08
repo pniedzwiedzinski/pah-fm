@@ -7,8 +7,8 @@ import { i18n } from '../main';
 import { FETCH_PASSENGERS } from './modules/passengers';
 import { FETCH_CARS } from './modules/cars';
 import { FETCH_PROJECTS } from './modules/projects';
+import { FETCH_DRIVES } from './modules/drives';
 import {
-  actions as apiActions,
   namespaces,
   SYNC,
   SYNC_ITEM_SUCCESS,
@@ -17,6 +17,7 @@ import {
 } from './constants';
 
 export const FETCH_USER = 'FETCH_USER';
+export const FETCH_DATA = 'FETCH_DATA';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SUBMIT = 'SUBMIT';
@@ -24,17 +25,20 @@ export const SET_HASH = 'SET_HASH';
 export const SWITCH_LANGUAGE = 'SWITCH_LANGUAGE';
 
 export const actions = {
-  [FETCH_USER]({ dispatch, commit }, { callback } = {}) {
+  [FETCH_USER]({ commit }, { callback } = {}) {
     getMyself().then((user) => {
       commit(mutations.SET_USER, user);
-      dispatch(`${namespaces.passengers}/${FETCH_PASSENGERS}`);
-      dispatch(`${namespaces.cars}/${FETCH_CARS}`);
-      dispatch(`${namespaces.drives}/${apiActions.fetchDrives}`);
-      dispatch(`${namespaces.projects}/${FETCH_PROJECTS}`);
       if (callback) {
         callback();
       }
     });
+  },
+
+  [FETCH_DATA]({ dispatch }) {
+    dispatch(`${namespaces.passengers}/${FETCH_PASSENGERS}`);
+    dispatch(`${namespaces.cars}/${FETCH_CARS}`);
+    dispatch(`${namespaces.drives}/${FETCH_DRIVES}`);
+    dispatch(`${namespaces.projects}/${FETCH_PROJECTS}`);
   },
 
   [LOGIN]({ commit, dispatch }, { username, password }) {
@@ -77,7 +81,7 @@ export const actions = {
 
   async [SYNC]({ dispatch, state, commit }) {
     if (state[UNSYNCHRONISED_DRIVES].length === 0 && state.user) {
-      dispatch(`${namespaces.drives}/${apiActions.fetchDrives}`);
+      dispatch(`${namespaces.drives}/${FETCH_DRIVES}`);
       return;
     }
 

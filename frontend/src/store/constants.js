@@ -24,10 +24,3 @@ export const namespaces = {
   passengers: 'passengers',
   projects: 'projects',
 };
-
-export const actions = {
-  fetchDrives: 'fetchDrives',
-  fetchCars: 'fetchCars',
-  fetchPassengers: 'fetchPassengers',
-  fetchProjects: 'fetchProjects',
-};

@@ -16,7 +16,7 @@
         :max="currentDate"
         class="form-control"
         :class="{ 'is-invalid': isInvalid['date'] }"
-      />
+      >
     </div>
 
     <div class="form-group">
@@ -29,7 +29,7 @@
         maxlength="100"
         class="form-control"
         :class="{ 'is-invalid': isInvalid['startLocation'] }"
-      />
+      >
     </div>
     <div class="form-group">
       <label>{{ $t('drive_form.starting_mileage') }}</label>
@@ -46,7 +46,7 @@
         @input="syncToLocalStorage"
         class="form-control"
         :class="{ 'is-invalid': isInvalid['startMileage'] }"
-      />
+      >
     </div>
     <div class="form-group">
       <label>{{ $t('drive_form.project') }}</label>
@@ -66,7 +66,10 @@
           {{ project.title }}
         </option>
       </select>
-      <p class="font-weight-bold" v-if="!projects">
+      <p
+        class="font-weight-bold"
+        v-if="!projects"
+      >
         {{ $t('drive_form.no_project_message') }}
       </p>
     </div>
@@ -81,11 +84,18 @@
         class="form-control"
         :class="{ 'is-invalid': isInvalid['car'] }"
       >
-        <option v-for="car in cars" :key="car.id" :value="car.id">
+        <option
+          v-for="car in cars"
+          :key="car.id"
+          :value="car.id"
+        >
           {{ car.plates }}
         </option>
       </select>
-      <p class="font-weight-bold" v-if="!cars">
+      <p
+        class="font-weight-bold"
+        v-if="!cars"
+      >
         {{ $t('drive_form.no_cars_message') }}
       </p>
     </div>
@@ -113,7 +123,7 @@
         name="description"
         class="form-control"
         :class="{ 'is-invalid': isInvalid['description'] }"
-      />
+      >
     </div>
 
     <div class="form-group">
@@ -126,7 +136,7 @@
         name="endLocation"
         class="form-control"
         :class="{ 'is-invalid': isInvalid['endLocation'] }"
-      />
+      >
     </div>
     <div class="form-group">
       <label>{{ $t('drive_form.ending_mileage') }}</label>
@@ -143,7 +153,7 @@
         name="endMileage"
         class="form-control"
         :class="{ 'is-invalid': isInvalid['endMileage'] }"
-      />
+      >
     </div>
     <div class="form-group">
       <label for="driveHash">{{ $t('drive_form.drive_hash') }}</label>
@@ -153,7 +163,7 @@
         v-model.number="computeHash"
         class="form-control"
         readonly
-      />
+      >
     </div>
     <div class="form-group">
       <label for="signature">{{ $t('drive_form.signature') }}</label>
@@ -167,7 +177,7 @@
         v-model="form.signature"
         class="form-control"
         :class="{ 'is-invalid': isInvalid['signature'] }"
-      />
+      >
     </div>
     <div class="form-group col-xs-12">
       {{ $t('drive_form.distance_traveled', { distance: distance }) }}
@@ -219,7 +229,6 @@ import { FETCH_CARS } from '../store/modules/cars';
 import { FETCH_PROJECTS } from '../store/modules/projects';
 import {
   namespaces,
-  actions as apiActions,
   IS_ONLINE,
 } from '../store/constants';
 import { FORM_STATE } from '../constants/form';
@@ -281,14 +290,12 @@ export default {
       this.isVerified = false;
 
       if (this.listOfErrors.length === 0) {
-        const passenger = this.passengers.find(
-          (p) => p.value.toString() === this.form.passenger
-        );
+        const passenger = this.passengers.find(p => p.value.toString() === this.form.passenger);
         this.isVerified = verify(
           this.computeHash,
           this.form.signature || 0,
           passenger.rsaPubE,
-          passenger.rsaModulusN
+          passenger.rsaModulusN,
         );
         if (!this.form.signature) delete this.form.signature;
         this[actions.SUBMIT]({
@@ -358,7 +365,7 @@ export default {
           startMileage: this.form.startMileage,
           endMileage: this.form.endMileage,
         }),
-        6
+        6,
       );
     },
   },

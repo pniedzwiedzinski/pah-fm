@@ -35,7 +35,7 @@ import store, { LANGUAGE } from './store';
 import { isUserLoggedIn } from './services/api/user';
 
 import { SYNC } from './store/constants';
-import { FETCH_USER } from './store/actions';
+import { FETCH_USER, FETCH_DATA } from './store/actions';
 
 export default {
   name: 'App',
@@ -59,6 +59,7 @@ export default {
     ...mapActions({
       sync: SYNC,
       fetchUser: FETCH_USER,
+      fetchData: FETCH_DATA,
     }),
   },
   created() {
@@ -69,6 +70,7 @@ export default {
     if (this.isUserLoggedIn) {
       this.sync();
       this.fetchUser();
+      this.fetchData();
     }
   },
 };

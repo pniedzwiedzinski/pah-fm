@@ -21,7 +21,7 @@ const mutations = {
 const actions = {
   [FETCH_PROJECTS]: ({ commit }) =>
     // TODO: Error handling
-    get('projects').then((projects) => commit(SET_PROJECTS, projects)),
+    get('projects').then(projects => commit(SET_PROJECTS, projects)),
 };
 
 export default {

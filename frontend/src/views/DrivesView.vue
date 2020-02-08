@@ -31,13 +31,20 @@
       >
         <h5 class="mb-0">
           <span class="font-weight-bold">{{ drive.date }}</span>
-          {{ $t('drives.from_to', { from: drive.startLocation, destination: drive.endLocation}) }}
+          {{
+            $t('drives.from_to', {
+              from: drive.startLocation,
+              destination: drive.endLocation,
+            })
+          }}
         </h5>
       </div>
       <div :class="['collapse', { show: visibleDrive === drive.timestamp }]">
         <div class="card-body">
           <p>
-            <span class="font-weight-bold mr-1">{{ $t('drives.description') }}</span>
+            <span class="font-weight-bold mr-1">{{
+              $t('drives.description')
+            }}</span>
             <span>{{ drive.description }}</span>
           </p>
           <p>
@@ -45,15 +52,21 @@
             <span>{{ drive.car.plates }}</span>
           </p>
           <p>
-            <span class="font-weight-bold mr-1">{{ $t('drives.project') }}</span>
+            <span class="font-weight-bold mr-1">{{
+              $t('drives.project')
+            }}</span>
             <span>{{ drive.project.title }}</span>
           </p>
           <p>
-            <span class="font-weight-bold mr-1">{{ $t('drives.starting_mileage') }}</span>
+            <span class="font-weight-bold mr-1">{{
+              $t('drives.starting_mileage')
+            }}</span>
             <span>{{ drive.startMileage }}</span>
           </p>
           <p>
-            <span class="font-weight-bold mr-1">{{ $t('drives.ending_mileage') }}</span>
+            <span class="font-weight-bold mr-1">{{
+              $t('drives.ending_mileage')
+            }}</span>
             <span>{{ drive.endMileage }}</span>
           </p>
           <div
@@ -91,13 +104,20 @@
       >
         <h5 class="mb-0">
           <span class="font-weight-bold">{{ drive.date }}</span>
-          {{ $t('drives.from_to', { from: drive.startLocation, destination: drive.endLocation }) }}
+          {{
+            $t('drives.from_to', {
+              from: drive.startLocation,
+              destination: drive.endLocation,
+            })
+          }}
         </h5>
       </div>
       <div :class="['collapse', { show: visibleDrive === drive.id }]">
         <div class="card-body">
           <p>
-            <span class="font-weight-bold mr-1">{{ $t('drives.description') }}</span>
+            <span class="font-weight-bold mr-1">{{
+              $t('drives.description')
+            }}</span>
             <span>{{ drive.description }}</span>
           </p>
           <p>
@@ -105,15 +125,21 @@
             <span>{{ drive.car.plates }}</span>
           </p>
           <p>
-            <span class="font-weight-bold mr-1">{{ $t('drives.project') }}</span>
+            <span class="font-weight-bold mr-1">{{
+              $t('drives.project')
+            }}</span>
             <span>{{ drive.project.title }}</span>
           </p>
           <p>
-            <span class="font-weight-bold mr-1">{{ $t('drives.starting_mileage') }}</span>
+            <span class="font-weight-bold mr-1">{{
+              $t('drives.starting_mileage')
+            }}</span>
             <span>{{ drive.startMileage }}</span>
           </p>
           <p>
-            <span class="font-weight-bold mr-1">{{ $t('drives.ending_mileage') }}</span>
+            <span class="font-weight-bold mr-1">{{
+              $t('drives.ending_mileage')
+            }}</span>
             <span>{{ drive.endMileage }}</span>
           </p>
           <div
@@ -130,8 +156,9 @@
 </template>
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex';
+
+import { FETCH_DRIVES } from '../store/modules/drives';
 import {
-  actions as apiActions,
   namespaces,
   UNSYNCHRONISED_DRIVES,
   UNSYNCHRONISED_DRIVES_TOTAL_MILEAGE,
@@ -149,7 +176,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(namespaces.drives, [apiActions.fetchDrives]),
+    ...mapActions(namespaces.drives, [FETCH_DRIVES]),
     showDrive(id) {
       this.visibleDrive = this.visibleDrive === id ? null : id;
     },
@@ -160,13 +187,13 @@ export default {
       unsyncedDrivesTotalMileage: UNSYNCHRONISED_DRIVES_TOTAL_MILEAGE,
     }),
     ...mapState(namespaces.drives, {
-      drives: state => state.data || [],
-      totalKilometers: state =>
-        state.data.filter(totalMileageFilter).reduce(totalMileageReducer, 0),
+      drives: ({ DRIVES }) => DRIVES,
+      totalKilometers: ({ DRIVES }) =>
+        DRIVES.filter(totalMileageFilter).reduce(totalMileageReducer, 0),
     }),
   },
   created() {
-    this[apiActions.fetchDrives]();
+    this[FETCH_DRIVES]();
   },
 };
 </script>

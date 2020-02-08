@@ -1,13 +1,11 @@
-import { makeModule, makeFetchData } from './helpers';
-import { namespaces, actions } from './constants';
+import { namespaces } from './constants';
 import PassengerModule from './modules/passengers';
 import CarsModule from './modules/cars';
 import ProjectsModule from './modules/projects';
+import DrivesModule from './modules/drives';
 
 const modules = {
-  [namespaces.drives]: makeModule({
-    [actions.fetchDrives]: makeFetchData('drives'),
-  }),
+  [namespaces.drives]: DrivesModule,
   [namespaces.cars]: CarsModule,
   [namespaces.passengers]: PassengerModule,
   [namespaces.projects]: ProjectsModule,
